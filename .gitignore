@@ -1,0 +1,30 @@
+# === Laravel ===
+Laravel-klinik-hewan-3A/.phpunit.cache
+Laravel-klinik-hewan-3A/node_modules
+Laravel-klinik-hewan-3A/public/build
+Laravel-klinik-hewan-3A/public/hot
+Laravel-klinik-hewan-3A/public/storage
+Laravel-klinik-hewan-3A/storage/*.key
+Laravel-klinik-hewan-3A/vendor
+Laravel-klinik-hewan-3A/.env
+Laravel-klinik-hewan-3A/.env.backup
+Laravel-klinik-hewan-3A/.env.production
+Laravel-klinik-hewan-3A/.fleet
+Laravel-klinik-hewan-3A/.idea
+Laravel-klinik-hewan-3A/.vscode
+
+# === React ===
+react-klinik-hewan/node_modules
+react-klinik-hewan/dist
+react-klinik-hewan/.env
+react-klinik-hewan/.env.local
+react-klinik-hewan/.env.production
+
+# === General ===
+*.log
+*.rar
+*.zip
+.DS_Store
+Thumbs.db
+kata2.txt
+CONTEXT_FOR_AI.md
