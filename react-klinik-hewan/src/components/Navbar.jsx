@@ -52,7 +52,7 @@ function Navbar() {
             {/* Dashboard - Admin only */}
             {role === 'admin' && (
               <li className="nav-item">
-                <NavLink className="nav-link" to="/" end>
+                <NavLink className="nav-link" to="/dashboard">
                   <i className="bi bi-speedometer2"></i> Dashboard
                 </NavLink>
               </li>
@@ -74,6 +74,16 @@ function Navbar() {
                       <i className="bi bi-people"></i> Users
                     </Link>
                   </li>
+                  <li>
+                    <Link className="dropdown-item" to="/pegawai" onClick={() => setOpenDropdown(null)}>
+                      <i className="bi bi-person-badge"></i> Pegawai
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/dokter-hewan" onClick={() => setOpenDropdown(null)}>
+                      <i className="bi bi-heart-pulse"></i> Dokter Hewan
+                    </Link>
+                  </li>
                 </ul>
               </li>
             )}
@@ -92,6 +102,33 @@ function Navbar() {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/hewan">
                   <i className="bi bi-award"></i> Hewan
+                </NavLink>
+              </li>
+            )}
+
+            {/* Pendaftaran - Admin, Pegawai */}
+            {['admin', 'pegawai'].includes(role) && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/pendaftaran">
+                  <i className="bi bi-clipboard-plus"></i> Pendaftaran
+                </NavLink>
+              </li>
+            )}
+
+            {/* Pemeriksaan - Admin, Dokter */}
+            {['admin', 'dokter'].includes(role) && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/pemeriksaan">
+                  <i className="bi bi-clipboard2-pulse"></i> Pemeriksaan
+                </NavLink>
+              </li>
+            )}
+
+            {/* Pembayaran - Admin, Pegawai */}
+            {['admin', 'pegawai'].includes(role) && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/pembayaran">
+                  <i className="bi bi-cash-stack"></i> Pembayaran
                 </NavLink>
               </li>
             )}

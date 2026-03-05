@@ -3,8 +3,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 const menuItems = [
   { path: '/', icon: 'bi-speedometer2', label: 'Dashboard' },
   { path: '/users', icon: 'bi-people', label: 'Users' },
+  { path: '/pegawai', icon: 'bi-person-badge', label: 'Pegawai' },
+  { path: '/dokter-hewan', icon: 'bi-heart-pulse', label: 'Dokter Hewan' },
   { path: '/pemilik-hewan', icon: 'bi-person-badge', label: 'Pemilik Hewan' },
-  { path: '/hewan', icon: 'bi-github', label: 'Hewan' },
+  { path: '/hewan', icon: 'bi-award', label: 'Hewan' },
+  { path: '/pendaftaran', icon: 'bi-clipboard-plus', label: 'Pendaftaran' },
+  { path: '/pemeriksaan', icon: 'bi-clipboard2-pulse', label: 'Pemeriksaan' },
+  { path: '/pembayaran', icon: 'bi-cash-stack', label: 'Pembayaran' },
   { path: '/obat', icon: 'bi-capsule', label: 'Obat' },
 ]
 

@@ -17,7 +17,15 @@ function Login() {
       const res = await api.post('/login', form)
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('user', JSON.stringify(res.data.user))
-      navigate('/')
+
+      // Redirect berdasarkan role
+      const role = res.data.user?.role
+      switch (role) {
+        case 'admin': navigate('/dashboard'); break
+        case 'pegawai': navigate('/pemilik-hewan'); break
+        case 'dokter': navigate('/pemeriksaan'); break
+        default: navigate('/')
+      }
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data?.errors?.email?.[0] || 'Login gagal')
     } finally {

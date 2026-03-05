@@ -4,6 +4,10 @@ import Alert from '../components/Alert'
 import { getAll, create, update, remove } from '../services/obatService'
 
 function Obat() {
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
+  const role = user.role || ''
+  const canEdit = ['admin', 'pegawai'].includes(role) // Dokter hanya bisa lihat
+
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -84,9 +88,11 @@ function Obat() {
     <>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2><i className="bi bi-capsule"></i> Data Obat</h2>
-        <button className="btn btn-primary" onClick={openCreate}>
-          <i className="bi bi-plus-circle"></i> Tambah Obat
-        </button>
+        {canEdit && (
+          <button className="btn btn-primary" onClick={openCreate}>
+            <i className="bi bi-plus-circle"></i> Tambah Obat
+          </button>
+        )}
       </div>
 
       <Alert type="danger" message={error} onClose={() => setError('')} />
@@ -110,13 +116,13 @@ function Obat() {
                   <th>Jenis</th>
                   <th>Harga</th>
                   <th>Stok</th>
-                  <th>Aksi</th>
+                  {canEdit && <th>Aksi</th>}
                 </tr>
               </thead>
               <tbody>
                 {data.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="text-center py-4">
+                    <td colSpan={canEdit ? 6 : 5} className="text-center py-4">
                       <i className="bi bi-inbox fs-1 text-muted"></i>
                       <p className="text-muted">Belum ada data obat</p>
                     </td>
@@ -137,16 +143,18 @@ function Obat() {
                           <span className="badge bg-success">{item.stok}</span>
                         )}
                       </td>
-                      <td>
-                        <div className="btn-group btn-group-sm">
-                          <button className="btn btn-warning" title="Edit" onClick={() => openEdit(item)}>
-                            <i className="bi bi-pencil"></i>
-                          </button>
-                          <button className="btn btn-danger" title="Hapus" onClick={() => handleDelete(item.id_obat)}>
-                            <i className="bi bi-trash"></i>
-                          </button>
-                        </div>
-                      </td>
+                      {canEdit && (
+                        <td>
+                          <div className="btn-group btn-group-sm">
+                            <button className="btn btn-warning" title="Edit" onClick={() => openEdit(item)}>
+                              <i className="bi bi-pencil"></i>
+                            </button>
+                            <button className="btn btn-danger" title="Hapus" onClick={() => handleDelete(item.id_obat)}>
+                              <i className="bi bi-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   ))
                 )}

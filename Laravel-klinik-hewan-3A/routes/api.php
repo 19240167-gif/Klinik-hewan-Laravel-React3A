@@ -7,6 +7,11 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PemilikHewanController;
 use App\Http\Controllers\Api\HewanController;
 use App\Http\Controllers\Api\ObatController;
+use App\Http\Controllers\Api\PegawaiController;
+use App\Http\Controllers\Api\DokterHewanController;
+use App\Http\Controllers\Api\PendaftaranController;
+use App\Http\Controllers\Api\PemeriksaanController;
+use App\Http\Controllers\Api\PembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +40,21 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Obat
     Route::apiResource('obat', ObatController::class);
+
+    // Pegawai
+    Route::apiResource('pegawai', PegawaiController::class);
+
+    // Dokter Hewan
+    Route::apiResource('dokter-hewan', DokterHewanController::class);
+
+    // Pendaftaran
+    Route::apiResource('pendaftaran', PendaftaranController::class);
+
+    // Pemeriksaan
+    Route::get('/pemeriksaan-pending', [PemeriksaanController::class, 'pending']);
+    Route::apiResource('pemeriksaan', PemeriksaanController::class);
+
+    // Pembayaran
+    Route::get('/pembayaran-pending', [PembayaranController::class, 'pending']);
+    Route::apiResource('pembayaran', PembayaranController::class);
 });

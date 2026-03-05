@@ -4,24 +4,34 @@ import Loading from '../components/Loading'
 import api from '../services/api'
 
 function Dashboard() {
-  const [stats, setStats] = useState({ pemilik: 0, hewan: 0, obat: 0, users: 0 })
+  const [stats, setStats] = useState({ pemilik: 0, hewan: 0, obat: 0, users: 0, pegawai: 0, dokter: 0, pendaftaran: 0, pemeriksaan: 0, pembayaran: 0 })
   const [loading, setLoading] = useState(true)
   const user = JSON.parse(localStorage.getItem('user') || '{}')
 
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [pemilikRes, hewanRes, obatRes, usersRes] = await Promise.allSettled([
+        const [pemilikRes, hewanRes, obatRes, usersRes, pegawaiRes, dokterRes, pendaftaranRes, pemeriksaanRes, pembayaranRes] = await Promise.allSettled([
           api.get('/pemilik-hewan'),
           api.get('/hewan'),
           api.get('/obat'),
           api.get('/users'),
+          api.get('/pegawai'),
+          api.get('/dokter-hewan'),
+          api.get('/pendaftaran'),
+          api.get('/pemeriksaan'),
+          api.get('/pembayaran'),
         ])
         setStats({
           pemilik: pemilikRes.status === 'fulfilled' ? (pemilikRes.value.data.data?.length ?? 0) : 0,
           hewan: hewanRes.status === 'fulfilled' ? (hewanRes.value.data.data?.length ?? 0) : 0,
           obat: obatRes.status === 'fulfilled' ? (obatRes.value.data.data?.length ?? 0) : 0,
           users: usersRes.status === 'fulfilled' ? (usersRes.value.data.data?.length ?? 0) : 0,
+          pegawai: pegawaiRes.status === 'fulfilled' ? (pegawaiRes.value.data.data?.length ?? 0) : 0,
+          dokter: dokterRes.status === 'fulfilled' ? (dokterRes.value.data.data?.length ?? 0) : 0,
+          pendaftaran: pendaftaranRes.status === 'fulfilled' ? (pendaftaranRes.value.data.data?.length ?? 0) : 0,
+          pemeriksaan: pemeriksaanRes.status === 'fulfilled' ? (pemeriksaanRes.value.data.data?.length ?? 0) : 0,
+          pembayaran: pembayaranRes.status === 'fulfilled' ? (pembayaranRes.value.data.data?.length ?? 0) : 0,
         })
       } catch (err) {
         console.error('Error fetching stats:', err)
@@ -37,6 +47,11 @@ function Dashboard() {
   const cards = [
     { label: 'Pemilik Hewan', value: stats.pemilik, icon: 'bi-people', color: 'primary', link: '/pemilik-hewan' },
     { label: 'Hewan', value: stats.hewan, icon: 'bi-award', color: 'success', link: '/hewan' },
+    { label: 'Pegawai', value: stats.pegawai, icon: 'bi-person-badge', color: 'secondary', link: '/pegawai' },
+    { label: 'Dokter Hewan', value: stats.dokter, icon: 'bi-heart-pulse', color: 'danger', link: '/dokter-hewan' },
+    { label: 'Pendaftaran', value: stats.pendaftaran, icon: 'bi-clipboard-plus', color: 'dark', link: '/pendaftaran' },
+    { label: 'Pemeriksaan', value: stats.pemeriksaan, icon: 'bi-clipboard2-pulse', color: 'info', link: '/pemeriksaan' },
+    { label: 'Pembayaran', value: stats.pembayaran, icon: 'bi-cash-stack', color: 'success', link: '/pembayaran' },
     { label: 'Obat', value: stats.obat, icon: 'bi-capsule', color: 'warning', link: '/obat' },
     { label: 'Users', value: stats.users, icon: 'bi-people', color: 'info', link: '/users' },
   ]
@@ -90,10 +105,13 @@ function Dashboard() {
         <div className="col-md-4">
           <div className="card">
             <div className="card-header">
-              <h5 className="mb-0"><i className="bi bi-info-circle"></i> Quick Actions</h5>
+              <h5 className="mb-0"><i className="bi bi-lightning"></i> Quick Actions</h5>
             </div>
             <div className="card-body">
               <div className="d-grid gap-2">
+                <Link to="/pendaftaran" className="btn btn-outline-dark">
+                  <i className="bi bi-plus-circle"></i> Tambah Pendaftaran
+                </Link>
                 <Link to="/pemilik-hewan" className="btn btn-outline-primary">
                   <i className="bi bi-plus-circle"></i> Tambah Pemilik Hewan
                 </Link>
